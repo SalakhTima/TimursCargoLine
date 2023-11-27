@@ -1,0 +1,162 @@
+﻿<Window x:Class="TimursCargoLine.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimursCargoLine"
+        mc:Ignorable="d"
+        Title="Timur's Cargo Line" 
+        Height="1080"
+        Width="1920" 
+        WindowState="Maximized"
+        Icon="../Assets/Logotype.png">
+    
+        <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120px"></RowDefinition>
+            <RowDefinition Height="50px"></RowDefinition>
+            <RowDefinition Height="790px"></RowDefinition>
+            <RowDefinition Height="120px"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <ImageBrush ImageSource="../Assets/HeaderBackground.jpg"/>
+            </Grid.Background>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200px"></ColumnDefinition>
+                <ColumnDefinition Width="1520px"></ColumnDefinition>
+                <ColumnDefinition Width="200px"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Image Source="../Assets/Logotype.png"
+                       Margin="5px"/>
+                
+                <TextBlock Text="Timur's" 
+                           FontSize="60" 
+                           VerticalAlignment="Center"
+                           Margin="10px"
+                           FontWeight="Medium"
+                           Foreground="#ff9600"/>
+                    
+                <TextBlock Text="Cargo" 
+                           FontSize="60"
+                           VerticalAlignment="Center"
+                           Margin="10px"
+                           Foreground="#ff9600"/>
+                    
+                <TextBlock Text="Line" 
+                           FontSize="60"
+                           VerticalAlignment="Center"
+                           Margin="10px"
+                           FontWeight="Medium"
+                           Foreground="#ff9600"/>
+                
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                
+                <TextBlock Text="ВЕРСИЯ ОТ 23.11.2023"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Margin="0 0 5 0"
+                           FontSize="15"
+                           FontWeight="Medium"
+                           Foreground="#ff9600"/>
+                
+            </StackPanel>
+            
+        </Grid>
+
+        <Grid Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200px"></ColumnDefinition>
+                <ColumnDefinition Width="1520px"></ColumnDefinition>
+                <ColumnDefinition Width="200px"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1" DataContext="{Binding ContentSwitcher}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300px"></ColumnDefinition>
+                    <ColumnDefinition Width="1220px"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" 
+                            Orientation="Vertical">
+                    
+                    <TextBlock Text="Категории"
+                             FontSize="22"
+                             FontWeight="Medium"
+                             HorizontalAlignment="Left"
+                             Margin="15, 15, 15, 15"
+                             Foreground="#ff9600"/>
+                    
+                    <Button Content="Оформить заказ"
+                            FontSize="22"
+                            HorizontalAlignment="Left"
+                            Margin="15, 15, 15, 15"
+                            Command="{Binding SetContent}"
+                            CommandParameter="Order"
+                            FontWeight="Medium"
+                            BorderBrush="White"
+                            Background="White"
+                            Foreground="Gray"
+                            Height="40"
+                            Width="200">
+                    </Button>    
+                    
+                    <Button Content="Отчет по заказу"
+                            FontSize="22"
+                            HorizontalAlignment="Left"
+                            Margin="15, 15, 15, 15"
+                            Command="{Binding SetContent}"
+                            CommandParameter="Report"
+                            FontWeight="Medium"
+                            BorderBrush="White"
+                            Background="White"
+                            Foreground="Gray"
+                            Height="40"
+                            Width="190"/>
+                    
+                    <Button Content="Типы грузов"
+                            FontSize="22"
+                            HorizontalAlignment="Left"
+                            Margin="15, 15, 15, 15"
+                            Command="{Binding SetContent}"
+                            CommandParameter="TypesOfCargo"
+                            FontWeight="Medium"
+                            BorderBrush="White"
+                            Background="White"
+                            Foreground="Gray"
+                            Height="40"
+                            Width="155"/>
+                    
+                    <Button Content="Типы грузоперевозок"
+                            FontSize="22"
+                            HorizontalAlignment="Left"
+                            Margin="15, 15, 15, 15"
+                            Command="{Binding SetContent}"
+                            CommandParameter="TypesOfTransportation"
+                            FontWeight="Medium"
+                            BorderBrush="White"
+                            Background="White"
+                            Foreground="Gray"
+                            Height="40"
+                            Width="250"/>
+                </StackPanel>
+                
+                <ContentControl Grid.Column="1" Content="{Binding MyContentControl}"/>
+                
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+        
+</Window>

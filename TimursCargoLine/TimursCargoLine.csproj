@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Antiques1.jpg" />
+    <None Remove="Assets\Auto1.jpg" />
+    <None Remove="Assets\Chemicals1.jpg" />
+    <None Remove="Assets\HeaderBackground.jpg" />
+    <None Remove="Assets\Jewerly1.jpg" />
+    <None Remove="Assets\Logotype.png" />
+    <None Remove="Assets\Medecines1.jpg" />
+    <None Remove="Assets\Plane1.jpg" />
+    <None Remove="Assets\StartWindowBackground.jpg" />
+    <None Remove="Assets\Tanker1.jpg" />
+    <None Remove="Assets\TobaccoAndAlcohol1.jpg" />
+    <None Remove="Assets\Train1.jpg" />
+    <None Remove="Assets\Truck1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GMap.NET.WinPresentation" Version="2.1.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Antiques1.jpg" />
+    <Resource Include="Assets\Auto1.jpg" />
+    <Resource Include="Assets\Chemicals1.jpg" />
+    <Resource Include="Assets\HeaderBackground.jpg" />
+    <Resource Include="Assets\Jewerly1.jpg" />
+    <Resource Include="Assets\Logotype.png" />
+    <Resource Include="Assets\Medecines1.jpg" />
+    <Resource Include="Assets\Plane1.jpg" />
+    <Resource Include="Assets\StartWindowBackground.jpg" />
+    <Resource Include="Assets\Tanker1.jpg" />
+    <Resource Include="Assets\TobaccoAndAlcohol1.jpg" />
+    <Resource Include="Assets\Train1.jpg" />
+    <Resource Include="Assets\Truck1.jpg" />
+  </ItemGroup>
+
+</Project>

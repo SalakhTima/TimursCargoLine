@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="TimursCargoLine.View.UserControl.TypesOfTransportation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="790px" d:DesignWidth="1220px">
+   
+    <Grid>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="320px"></RowDefinition>
+                <RowDefinition Height="320px"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                
+                <Image Source="../../Assets/Plane1.jpg" 
+                       Height="260"
+                       Width="300"/>
+                
+            </StackPanel>
+        
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                
+                <Image Source="../../Assets/Truck1.jpg" 
+                       Height="250"
+                       Width="300"/>
+                
+            </StackPanel>
+            
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                    
+                <Image Source="../../Assets/Tanker1.jpg" 
+                       Height="250"
+                       Width="300"/>
+                    
+            </StackPanel>
+        
+            <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        
+                <Image Source="../../Assets/Train1.jpg" 
+                       Height="250"
+                       Width="300"/>
+                
+            </StackPanel>
+            
+        </Grid>
+    
+</UserControl>
