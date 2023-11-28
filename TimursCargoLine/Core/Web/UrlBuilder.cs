@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Windows;
 
-namespace TimursCargoLine.Core;
+namespace TimursCargoLine.Core.Web;
 
 public static class UrlBuilder
 {
@@ -13,12 +13,12 @@ public static class UrlBuilder
         {
             MessageBox.Show("Entered points have the same coordinates.");
         }
-        
+
         return new Uri(string.Format(CultureInfo.InvariantCulture,
             "https://api.openrouteservice.org/v2/directions/driving-car?api_key={0}&start={1},{2}&end={3},{4}",
             Key, a.Longitude, a.Latitude, b.Longitude, b.Latitude));
     }
-    
+
     public static Uri BuildTargetRequestUrl(string keyWords, string countryCode)
     {
         return new Uri(string.Format(CultureInfo.InvariantCulture,

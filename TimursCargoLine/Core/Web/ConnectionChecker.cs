@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace TimursCargoLine.Core;
+namespace TimursCargoLine.Core.Web;
 
 public static class ConnectionChecker
 {

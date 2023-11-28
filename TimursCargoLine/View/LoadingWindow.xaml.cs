@@ -1,5 +1,5 @@
 using System.Windows;
-using TimursCargoLine.Core;
+using TimursCargoLine.Core.Web;
 
 namespace TimursCargoLine.View;
 

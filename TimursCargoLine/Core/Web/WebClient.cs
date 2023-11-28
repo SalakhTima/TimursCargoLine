@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
+using System.Windows;
 
-namespace TimursCargoLine.Core;
+namespace TimursCargoLine.Core.Web;
 
 internal static class WebClient
 {
@@ -11,9 +12,9 @@ internal static class WebClient
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new HttpRequestException($"HTTP request failed with status code {response.StatusCode}.");
+            MessageBox.Show($"HTTP request failed with status code {response.StatusCode}");
         }
 
-        return await response.Content.ReadAsStringAsync(); 
+        return await response.Content.ReadAsStringAsync();
     }
 }

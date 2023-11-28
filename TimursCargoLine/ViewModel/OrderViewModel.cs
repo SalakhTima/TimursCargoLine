@@ -2,6 +2,7 @@ using System.Windows.Input;
 using TimursCargoLine.Core;
 using TimursCargoLine.Core.Domain;
 using TimursCargoLine.Core.Factories;
+using TimursCargoLine.Core.Web;
 using TimursCargoLine.Model;
 
 namespace TimursCargoLine.ViewModel;
