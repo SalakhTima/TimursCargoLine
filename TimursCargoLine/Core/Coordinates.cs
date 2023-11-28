@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TimursCargoLine.Core;
+﻿namespace TimursCargoLine.Core;
 
 public readonly struct Coordinates : IEquatable<Coordinates>
 {

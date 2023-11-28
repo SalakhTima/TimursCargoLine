@@ -1,8 +1,6 @@
-using System.Collections.Generic;
+namespace TimursCargoLine.Core.Domain;
 
-namespace TimursCargoLine.Core;
-
-public interface IRouteable
+public interface IRoute
 {
     IEnumerable<Coordinates> GetIntermediateCoordinates();
     double GetDistance();

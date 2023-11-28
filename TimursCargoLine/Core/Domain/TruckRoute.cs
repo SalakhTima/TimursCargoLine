@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace TimursCargoLine.Core;
+namespace TimursCargoLine.Core.Domain;
 
-internal class TruckRoute : IRouteable
+internal class TruckRoute : IRoute
 {
     private const int AverageTruckSpeed = 90;
     private readonly JsonRouteFormat _data;
@@ -14,16 +11,16 @@ internal class TruckRoute : IRouteable
     {
         _data = JsonConvert.DeserializeObject<JsonRouteFormat>(data)!;
     }
-    
+
     public IEnumerable<Coordinates> GetIntermediateCoordinates()
     {
-        return from f in _data.Features 
-            from c in f.Geometry!.Coordinates! 
-            select new Coordinates
-            {
-                Latitude = c[0], 
-                Longitude = c[1]
-            };
+        return from f in _data.Features
+               from c in f.Geometry!.Coordinates!
+               select new Coordinates
+               {
+                   Latitude = c[0],
+                   Longitude = c[1]
+               };
     }
 
     public double GetDistance()

@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace TimursCargoLine.Core;
+﻿namespace TimursCargoLine.Core;
 
 internal static class CostCalculator
 {

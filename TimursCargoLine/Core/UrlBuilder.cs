@@ -1,5 +1,5 @@
-using System;
 using System.Globalization;
+using System.Windows;
 
 namespace TimursCargoLine.Core;
 
@@ -11,7 +11,7 @@ public static class UrlBuilder
     {
         if (a == b)
         {
-            throw new ArgumentException("Entered points have the same coordinates.");
+            MessageBox.Show("Entered points have the same coordinates.");
         }
         
         return new Uri(string.Format(CultureInfo.InvariantCulture,

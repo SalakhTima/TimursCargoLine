@@ -1,7 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TimursCargoLine.Core;
+using TimursCargoLine.Core.Domain;
+using TimursCargoLine.Core.Factories;
 using TimursCargoLine.Model;
 
 namespace TimursCargoLine.ViewModel;
@@ -26,54 +26,51 @@ public class OrderViewModel : PropertyChanger
             });
         }
     }
-    
+
     private async Task<Report> CreateReport()
     {
         var outputReport = new Report();
-        
-        var targetARequestUri = UrlBuilder.BuildTargetRequestUrl(CurrentOrder.PointA, CurrentOrder.PointACountryCode);
-        var targetBRequestUri = UrlBuilder.BuildTargetRequestUrl(CurrentOrder.PointB, CurrentOrder.PointBCountryCode);
 
-        var targetAResponse = await WebClient.GetRequestDataAsync(targetARequestUri);
-        var targetBResponse = await WebClient.GetRequestDataAsync(targetBRequestUri);
+        var targetA = await GetTarget(CurrentOrder.PointA, CurrentOrder.PointACountryCode);
+        var targetB = await GetTarget(CurrentOrder.PointB, CurrentOrder.PointBCountryCode);
 
-        var targetA = new Target(targetAResponse);
-        var targetB = new Target(targetBResponse);
-        
         Enum.TryParse(CurrentOrder.Cargo.ToString(), out TypeOfCargo cargo);
         Enum.TryParse(CurrentOrder.Transportation.ToString(), out TypeOfTransportation transportation);
-        
+
+        IRouteFactory factory = GetFactory(transportation);
+        IRoute route = await factory.GetRoute(CurrentOrder);
+
         outputReport.From = targetA.Label;
         outputReport.To = targetB.Label;
         outputReport.Transportation = transportation;
         outputReport.Cargo = cargo;
         outputReport.ContainersAmount = CurrentOrder.ContainersAmount;
         outputReport.CreationTime = DateTime.Now;
-        
-        switch (transportation)
+        outputReport.Distance = $"{route.GetDistance()} км";
+        outputReport.Duration = $"{route.GetDuration()} ч";
+        outputReport.ApproximateCost = $"{CostCalculator.CalculateCostOfTransportation(transportation, cargo,
+            route.GetDistance(), CurrentOrder.ContainersAmount)} руб";
+
+        StaticContainer.Coordinates = route.GetIntermediateCoordinates();
+
+        return outputReport;
+    }
+
+    private async Task<Target> GetTarget(string keyWords, string countryCode)
+    {
+        var targetRequestUrl = UrlBuilder.BuildTargetRequestUrl(keyWords, countryCode);
+        var targetResponse = await WebClient.GetRequestDataAsync(targetRequestUrl);
+
+        return new Target(targetResponse);
+    }
+
+    private IRouteFactory GetFactory(TypeOfTransportation transportation)
+    {
+        return transportation switch
         {
-            case TypeOfTransportation.Truck:
-                var routeRequestUri = UrlBuilder.BuildRouteRequestUrl(targetA.Coordinates, targetB.Coordinates);
-                var routeResponse = await WebClient.GetRequestDataAsync(routeRequestUri);
-                var truckRoute = new TruckRoute(routeResponse);
-                outputReport.Distance = $"{truckRoute.GetDistance()} км";
-                outputReport.Duration = $"{truckRoute.GetDuration()} ч";
-                outputReport.ApproximateCost = $"{CostCalculator.CalculateCostOfTransportation(transportation, cargo,
-                    truckRoute.GetDistance(), CurrentOrder.ContainersAmount)} руб";
-                StaticContainer.Coordinates = truckRoute.GetIntermediateCoordinates();
-                return outputReport;
-            
-            case TypeOfTransportation.Plane:
-                var planeRoute = new PlaneRoute(targetA.Coordinates, targetB.Coordinates);
-                outputReport.Distance = $"{planeRoute.GetDistance()} км";
-                outputReport.Duration = $"{planeRoute.GetDuration()} ч";
-                outputReport.ApproximateCost = $"{CostCalculator.CalculateCostOfTransportation(transportation, cargo,
-                    planeRoute.GetDistance(), CurrentOrder.ContainersAmount)} руб";
-                StaticContainer.Coordinates = planeRoute.GetIntermediateCoordinates();
-                return outputReport;
-            
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+            TypeOfTransportation.Truck => new TruckRouteFactory(),
+            TypeOfTransportation.Plane => new PlaneRouteFactory(),
+            _ => throw new ArgumentOutOfRangeException(nameof(transportation)),
+        };
     }
 }

@@ -1,7 +1,3 @@
-using System.Windows.Input;
-using GMap.NET;
-using GMap.NET.MapProviders;
-using GMap.NET.WindowsPresentation;
 using TimursCargoLine.Model;
 
 namespace TimursCargoLine.ViewModel;

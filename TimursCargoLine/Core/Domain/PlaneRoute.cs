@@ -1,10 +1,6 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿namespace TimursCargoLine.Core.Domain;
 
-namespace TimursCargoLine.Core;
-
-internal class PlaneRoute : IRouteable
+internal class PlaneRoute : IRoute
 {
     private const int AveragePlaneSpeed = 900;
     private const int EarthRadius = 6371;
@@ -32,7 +28,7 @@ internal class PlaneRoute : IRouteable
         var dLon = DegreesToRadians(_airportB.Longitude - _airportA.Longitude);
 
         var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                Math.Cos(DegreesToRadians(_airportA.Latitude)) * 
+                Math.Cos(DegreesToRadians(_airportA.Latitude)) *
                 Math.Cos(DegreesToRadians(_airportB.Latitude)) *
                 Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
@@ -43,7 +39,7 @@ internal class PlaneRoute : IRouteable
 
     public double GetDuration()
     {
-        return Math.Round(GetDistance() / AveragePlaneSpeed, 2); 
+        return Math.Round(GetDistance() / AveragePlaneSpeed, 2);
     }
 
     private double DegreesToRadians(double degrees)

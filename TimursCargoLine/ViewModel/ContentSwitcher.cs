@@ -26,10 +26,10 @@ public class ContentSwitcher : PropertyChanger
                 _myContentControl = obj.ToString() switch
                 {
                     "Order" => MyContentControl = new Order(),
-                    "Report" => MyContentControl = new Report(),
+                    "Report" => StaticContainer.ReportData is null ? MyContentControl = new Order() : MyContentControl = new Report(),
                     "TypesOfTransportation" => MyContentControl = new TypesOfTransportation(),
                     "TypesOfCargo" => MyContentControl = new TypesOfCargo(),
-                    _ => _myContentControl
+                    _ => throw new ArgumentOutOfRangeException(nameof(obj))
                 };
             });
         }
