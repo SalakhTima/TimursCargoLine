@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Input;
 using TimursCargoLine.Core;
 using TimursCargoLine.Core.Domain;
@@ -30,6 +31,13 @@ public class OrderViewModel : PropertyChanger
 
     private async Task<Report> CreateReport()
     {
+        if (!Validate())
+        {
+            MessageBox.Show("Some data missing");
+            StaticContainer.Coordinates = DefaultValues.DefaultCoordinates;
+            return DefaultValues.DefaultReport; 
+        }
+
         var outputReport = new Report();
 
         var targetA = await GetTarget(CurrentOrder.PointA, CurrentOrder.PointACountryCode);
@@ -38,7 +46,7 @@ public class OrderViewModel : PropertyChanger
         Enum.TryParse(CurrentOrder.Cargo.ToString(), out TypeOfCargo cargo);
         Enum.TryParse(CurrentOrder.Transportation.ToString(), out TypeOfTransportation transportation);
 
-        IRouteFactory factory = GetFactory(transportation);
+        IRouteFactory factory = FactoryMethod.GetFactory(transportation);
         IRoute route = await factory.GetRoute(CurrentOrder);
 
         outputReport.From = targetA.Label;
@@ -65,13 +73,11 @@ public class OrderViewModel : PropertyChanger
         return new Target(targetResponse);
     }
 
-    private IRouteFactory GetFactory(TypeOfTransportation transportation)
+    private bool Validate()
     {
-        return transportation switch
-        {
-            TypeOfTransportation.Truck => new TruckRouteFactory(),
-            TypeOfTransportation.Plane => new PlaneRouteFactory(),
-            _ => throw new ArgumentOutOfRangeException(nameof(transportation)),
-        };
+        return !string.IsNullOrEmpty(CurrentOrder.PointA)
+               && !string.IsNullOrEmpty(CurrentOrder.PointACountryCode)
+               && !string.IsNullOrEmpty(CurrentOrder.PointB)
+               && !string.IsNullOrEmpty(CurrentOrder.PointBCountryCode);
     }
 }
