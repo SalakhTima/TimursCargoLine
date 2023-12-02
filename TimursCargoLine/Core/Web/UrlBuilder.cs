@@ -17,10 +17,7 @@ public static class UrlBuilder
             Key, a.Longitude, a.Latitude, b.Longitude, b.Latitude));
     }
 
-    public static Uri BuildTargetRequestUrl(string keyWords, string countryCode)
-    {
-        return new Uri(string.Format(CultureInfo.InvariantCulture,
-            "https://api.openrouteservice.org/geocode/search?api_key=" +
+    public static Uri BuildTargetRequestUrl(string keyWords, string countryCode) => new(string.Format(CultureInfo.InvariantCulture, 
+            "https://api.openrouteservice.org/geocode/search?api_key=" + 
             "{0}&text={1}&boundary.country={2}&size=1", Key, keyWords, countryCode));
-    }
 }

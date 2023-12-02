@@ -73,11 +73,8 @@ public class OrderViewModel : PropertyChanger
         return new Target(targetResponse);
     }
 
-    private bool Validate()
-    {
-        return !string.IsNullOrEmpty(CurrentOrder.PointA)
-               && !string.IsNullOrEmpty(CurrentOrder.PointACountryCode)
-               && !string.IsNullOrEmpty(CurrentOrder.PointB)
-               && !string.IsNullOrEmpty(CurrentOrder.PointBCountryCode);
-    }
+    private bool Validate() => !string.IsNullOrEmpty(CurrentOrder.PointA)
+                               && !string.IsNullOrEmpty(CurrentOrder.PointACountryCode)
+                               && !string.IsNullOrEmpty(CurrentOrder.PointB)
+                               && !string.IsNullOrEmpty(CurrentOrder.PointBCountryCode);
 }

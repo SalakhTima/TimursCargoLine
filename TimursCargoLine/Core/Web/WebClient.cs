@@ -11,10 +11,8 @@ internal static class WebClient
         var response = await client.GetAsync(uri);
 
         if (!response.IsSuccessStatusCode)
-        {
             MessageBox.Show($"HTTP request failed with status code {response.StatusCode}");
-        }
-
+        
         return await response.Content.ReadAsStringAsync();
     }
 }

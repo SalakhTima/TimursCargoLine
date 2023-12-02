@@ -1,5 +1,4 @@
-﻿
-namespace TimursCargoLine.Core;
+﻿namespace TimursCargoLine.Core;
 
 public enum TypeOfTransportation
 {

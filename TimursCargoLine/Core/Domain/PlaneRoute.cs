@@ -1,35 +1,24 @@
 ﻿namespace TimursCargoLine.Core.Domain;
 
-internal class PlaneRoute : IRoute
+internal class PlaneRoute(Coordinates airportA, Coordinates airportB) : IRoute
 {
     private const int AveragePlaneSpeed = 900;
     private const int EarthRadius = 6371;
-    private readonly Coordinates _airportA;
-    private readonly Coordinates _airportB;
 
-    public PlaneRoute(Coordinates airportA, Coordinates airportB)
+    public IEnumerable<Coordinates> GetIntermediateCoordinates() => new List<Coordinates>
     {
-        _airportA = airportA;
-        _airportB = airportB;
-    }
-
-    public IEnumerable<Coordinates> GetIntermediateCoordinates()
-    {
-        return new List<Coordinates>
-        {
-            _airportA,
-            _airportB
-        };
-    }
+        airportA, 
+        airportB
+    };
 
     public double GetDistance()
     {
-        var dLat = DegreesToRadians(_airportB.Latitude - _airportA.Latitude);
-        var dLon = DegreesToRadians(_airportB.Longitude - _airportA.Longitude);
+        var dLat = DegreesToRadians(airportB.Latitude - airportA.Latitude);
+        var dLon = DegreesToRadians(airportB.Longitude - airportA.Longitude);
 
         var a = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                Math.Cos(DegreesToRadians(_airportA.Latitude)) *
-                Math.Cos(DegreesToRadians(_airportB.Latitude)) *
+                Math.Cos(DegreesToRadians(airportA.Latitude)) *
+                Math.Cos(DegreesToRadians(airportB.Latitude)) *
                 Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
         var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
@@ -37,13 +26,7 @@ internal class PlaneRoute : IRoute
         return Math.Round(EarthRadius * c, 2);
     }
 
-    public double GetDuration()
-    {
-        return Math.Round(GetDistance() / AveragePlaneSpeed, 2);
-    }
+    public double GetDuration() => Math.Round(GetDistance() / AveragePlaneSpeed, 2);
 
-    private double DegreesToRadians(double degrees)
-    {
-        return degrees * Math.PI / 180;
-    }
+    private double DegreesToRadians(double degrees) => degrees * Math.PI / 180;
 }
